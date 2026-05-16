@@ -89,8 +89,22 @@ _FRONTMATTER_RE = re.compile(r"\A---\s*\n(.*?\n)---\s*\n", re.DOTALL)
 
 
 def bridge_canon_root() -> pathlib.Path:
-    """Return the absolute path to the vendored ``bridge_canon/`` directory."""
-    return pathlib.Path(__file__).resolve().parent.parent.parent / "bridge_canon"
+    """Return the absolute path to the vendored ``bridge_canon/`` directory.
+
+    v0.1.1 packaging fix (OT #59): ``bridge_canon/`` and ``bridge_canon_sidecars/``
+    now live inside the package at ``src/report_generator_frs_105/data/`` so they
+    are included in the wheel produced by ``pip install``. The resolver uses
+    ``__file__``-relative resolution which works for both editable installs
+    (``pip install -e .``) and pip-installed wheels.
+
+    The v0.1.0 layout placed ``bridge_canon/`` at the repo root which silently
+    dropped from the wheel because ``setuptools.packages.find(where=["src"])``
+    only discovers Python packages under ``src/`` (Lesson #40 — hermetic-green
+    against the source tree was pre-broken against the production-bundle wheel).
+    Caught at Phase 4a.4 Subagent B (LodgeiT_HMRC_CT600 integration) when the
+    pip-installed wheel raised ``UnknownSlugError`` on every call.
+    """
+    return pathlib.Path(__file__).resolve().parent / "data" / "bridge_canon"
 
 
 def _parse_frontmatter(text: str) -> Optional[dict]:
