@@ -1,0 +1,1 @@
+   <element abstract="false" id="core_TaxTaxCreditOnProfitOrLossOnOrdinaryActivities" name="TaxTaxCreditOnProfitOrLossOnOrdinaryActivities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="duration"/>

@@ -1,0 +1,1 @@
+<element abstract="false" id="core_OtherOperatingIncome" name="OtherOperatingIncome" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="credit" xbrli:periodType="duration"/>

@@ -1,0 +1,273 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://lodgeit-labs.org/sbrm/bridge/v1/schema/bridge-external-input.json",
+  "title": "SBRM \u2192 Framework Bridge External-Input Declaration (external_input)",
+  "description": "Schema for external_input bridge fact-nodes under GLOBAL_NOTES/BRIDGE/<framework_id>/<taxonomy_version>/<framework_concept_id>.input.md. Declares a framework concept that is NOT derivable from the TB and must be supplied via an external source: entity profile, period metadata, filing-time operator approval (CLAWDOG/112 \u00a75 staging analogue), or a static convention.",
+  "type": "object",
+  "required": [
+    "@context",
+    "@id",
+    "ontological_class",
+    "bridge_external_input",
+    "cryptographic_anchor",
+    "cybernetic_state",
+    "helm_mutations"
+  ],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://lodgeit-labs.org/sbrm/bridge/v1"
+    },
+    "@id": {
+      "type": "string",
+      "pattern": "^urn:sbrm:bridge-input:[a-z0-9_]+:[a-z0-9_]+:[a-z0-9_-]+$",
+      "description": "Canonical URN: urn:sbrm:bridge-input:<framework_id>:<taxonomy_version>:<framework_concept_slug>."
+    },
+    "ontological_class": {
+      "type": "string",
+      "const": "BridgeExternalInput"
+    },
+    "bridge_external_input": {
+      "type": "object",
+      "required": [
+        "framework_id",
+        "taxonomy_version",
+        "period_applicability",
+        "framework_concept",
+        "mapping_kind",
+        "statement_role",
+        "input_source"
+      ],
+      "properties": {
+        "framework_id": {
+          "type": "string",
+          "enum": [
+            "frs_105_micro",
+            "frs_102_1a_small",
+            "au_sbr_gp",
+            "au_aasb_ifrs",
+            "ifrs_full"
+          ]
+        },
+        "taxonomy_version": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "period_applicability": {
+          "oneOf": [
+            {
+              "type": "string",
+              "const": "ongoing"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.\\.[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+            }
+          ]
+        },
+        "framework_concept": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mapping_kind": {
+          "type": "string",
+          "const": "external_input"
+        },
+        "statement_role": {
+          "type": "string",
+          "enum": [
+            "BOILERPLATE",
+            "NOTE",
+            "PL_REVENUE",
+            "PL_EXPENSE",
+            "BS_ASSET",
+            "BS_LIABILITY",
+            "EQUITY",
+            "OCI",
+            "CASHFLOW"
+          ]
+        },
+        "input_source": {
+          "type": "string",
+          "enum": [
+            "entity_profile",
+            "period_metadata",
+            "filing_metadata",
+            "operator_approval",
+            "derived_from_classification",
+            "static_convention"
+          ],
+          "description": "Where the value comes from. entity_profile = LodgeiT entity record (name, CRN). period_metadata = period start/end dates. filing_metadata = filing date, AuthDate. operator_approval = staged disclosure input (CLAWDOG/112 \u00a75 analogue). derived_from_classification = boolean derived from presence/absence of TB lines (e.g. EntityTradingStatus). static_convention = hard-coded constant (e.g. accounting_policies boilerplate text)."
+        },
+        "default_value": {
+          "description": "Optional default. May be string/number/boolean/null. NN#4 still applies: if input_source resolves to no value AND no default is declared here, the bridge query MUST refuse rather than silently zero-default.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "verifies_against": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source",
+          "anchor"
+        ],
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "anchor": {
+            "type": "string"
+          },
+          "sidecar": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "cryptographic_anchor": {
+      "type": "object",
+      "required": [
+        "hash_algorithm",
+        "hash_target",
+        "content_hash"
+      ],
+      "properties": {
+        "hash_algorithm": {
+          "type": "string",
+          "const": "SHA-256"
+        },
+        "hash_target": {
+          "type": "string",
+          "enum": [
+            "self",
+            "source"
+          ]
+        },
+        "content_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$|^PLACEHOLDER_CONTENT_HASH$"
+        },
+        "ipfs_cid": {
+          "type": "string"
+        },
+        "hash_domain": {
+          "type": "string",
+          "enum": [
+            "pre_anchor_draft",
+            "anchored_v1",
+            "anchored_v2"
+          ]
+        }
+      }
+    },
+    "cybernetic_state": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "canonical",
+            "deprecated"
+          ]
+        }
+      }
+    },
+    "helm_mutations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "mutation_id",
+          "agent_id",
+          "authority",
+          "justification"
+        ],
+        "properties": {
+          "mutation_id": {
+            "type": "string"
+          },
+          "agent_id": {
+            "type": "string"
+          },
+          "authority": {
+            "type": "string"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "timestamp_utc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ledger_id": {
+            "type": "string"
+          },
+          "mutation_type": {
+            "type": "string"
+          },
+          "previous_content_hash": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "semantic_edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rel",
+          "target"
+        ],
+        "properties": {
+          "rel": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
