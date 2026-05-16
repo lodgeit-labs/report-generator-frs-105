@@ -1,7 +1,7 @@
 {
   "kit": "lodgeit-labs/report-generator-frs-105",
   "source_brain_repo": "github.com/futureWA/clawdog-brain",
-  "source_brain_canon_commit": "2fc7451a3068c69d726a2159cced4254fad2187c",
+  "source_brain_canon_commit": "a1f6dfa5e531d4d6c3f6df2a50a32765835017ab",
   "vendor_strategy": "byte-copy (D4.2=b) + Kit-CI byte-check gate (CLAWDOG/141 precedent)",
   "note": "Each vendored file is byte-identical to its source in clawdog-brain at the declared commit. The lookup artefact carries a Kit wrapper-frontmatter; its sha256 here covers the full wrapped file. All other files are unwrapped byte-copies.",
   "files": [
@@ -67,7 +67,7 @@
     },
     {
       "path": "bridge_canon/frs_105_micro/frc_v2026/_path_a_v1_lookup_2026-05-15.md",
-      "sha256": "d90bd8632ba58a4d65bfb8087aa4939e0862928989b39a7302f4fb170fd55107",
+      "sha256": "fd5fcf242556e5bc6fa4cb25c8b254c800e8f2ca02a23c265898fee4fb05ce23",
       "bytes": 19193
     },
     {
@@ -102,8 +102,8 @@
     },
     {
       "path": "bridge_canon/frs_105_micro/frc_v2026/date-authorisation-financial-statements-for-issue.input.md",
-      "sha256": "0b06c243faae035220f78bb6d78a78eb0aeec22218b4166d3a412b407fc48f4d",
-      "bytes": 2588
+      "sha256": "cfdbb2d73721538fb604a43598db51550f315c35772a95b1ac68f75698c189b3",
+      "bytes": 5813
     },
     {
       "path": "bridge_canon/frs_105_micro/frc_v2026/end-date-for-period-covered-by-report.input.md",
