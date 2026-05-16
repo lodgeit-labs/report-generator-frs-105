@@ -72,6 +72,21 @@ Four LodgeiT slugs **do not have a clean monetary-aggregate anchor** in the FRC 
 
 **Implication for integrators:** an Arelle-acceptable iXBRL filing using these slugs may still be **statutory-semantic-incomplete** in the dimensional-context sense. Phase 4a.6 closure requires a binding final human-eye review before the bridge canon is declared production-ready for the full FRS 105 hyperplane.
 
+## ✅ Real bug this Kit caught (Phase 4a.4 integration case study)
+
+The whole point of a deterministic content-hashed bridge canon (rather than a hand-authored mapping in each consumer's templates) is that hand-authored mappings drift. At Phase 4a.4 integration with `lodgeit-labs/LodgeiT_HMRC_CT600`, the A/B byte-identical iXBRL regression harness surfaced a real defect in the v1 production templates:
+
+- **v1 (hand-authored):** `<ix:nonFraction name="uk-core:DateAuthorisationFinancialStatementsForIssue" ...>`
+- **Bridge canon (deterministic):** `uk-bus:DateAuthorisationFinancialStatementsForIssue` (the concept lives in the `uk-bus` namespace, not `uk-core`, in FRC v2026)
+
+The v1 templates carried the wrong namespace prefix on a single concept for an unknown duration. The bridge canon's Phase 4a.2 `external_input` node for that concept correctly anchors to `uk-bus`. The integration's feature-flag A/B byte-identity test refused to pass until the v1 hard-coded fallback was corrected to match the canonical value; net change at template level was a 1-byte shift (`core` → `bus`).
+
+**Why this matters:** the v1 path reportedly passed Arelle FRC v2026 validation 0/0, suggesting Arelle treated the bad namespace as a soft warning rather than a hard error (or namespace-alias resolution was lenient). HMRC TE or Companies House strict validation might not be as forgiving — and downstream consumers of the rendered iXBRL (auditors, regulators, financial-data aggregators) parsing on exact namespace would treat the value as a distinct concept from the intended one.
+
+**Pattern:** the bridge canon is an active **cybernetic defence mechanism**, not just administrative overhead. By forcing consumers to substitute against a deterministic content-hashed atom rather than typing a literal namespace prefix, this Kit surfaces silent namespace defects at the first integration.
+
+Forensic chronicle: `clawdog-brain/memory/2026-05-15.md` (Phase 4a.4 Subagent B execution).
+
 ## Provenance
 
 This Kit's `bridge_canon/` and `bridge_canon_sidecars/` directories are a **byte-identical mirror** of:

@@ -26,7 +26,11 @@ import re
 import pytest
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-MANIFEST_PATH = ROOT / "bridge_canon" / "MANIFEST.json"
+# v0.1.1 packaging fix (OT #59): bridge_canon moved into src/report_generator_frs_105/data/
+# so the wheel ships the canon. MANIFEST entries retain ``bridge_canon/...`` paths
+# (relative to the canon root) so we anchor at the data dir instead of repo root.
+KIT_DATA_ROOT = ROOT / "src" / "report_generator_frs_105" / "data"
+MANIFEST_PATH = KIT_DATA_ROOT / "bridge_canon" / "MANIFEST.json"
 
 
 @pytest.fixture(scope="module")
@@ -44,7 +48,7 @@ def test_manifest_exists(manifest):
 def test_every_vendored_file_matches_declared_sha256(manifest):
     fails = []
     for entry in manifest["files"]:
-        p = ROOT / entry["path"]
+        p = KIT_DATA_ROOT / entry["path"]
         if not p.is_file():
             fails.append((entry["path"], "missing"))
             continue
@@ -65,7 +69,7 @@ _DECLARED_RE = re.compile(r'^\s*body_sha256:\s*"([0-9a-f]{64})"', re.MULTILINE)
 
 def test_lookup_artefact_wrapper_body_sha256_matches_body_bytes():
     """The Kit's wrapper-frontmatter declares body_sha256 of the wrapped Brain body."""
-    path = ROOT / "bridge_canon" / "frs_105_micro" / "frc_v2026" / "_path_a_v1_lookup_2026-05-15.md"
+    path = KIT_DATA_ROOT / "bridge_canon" / "frs_105_micro" / "frc_v2026" / "_path_a_v1_lookup_2026-05-15.md"
     content = path.read_text(encoding="utf-8")
     m = _DECLARED_RE.search(content)
     assert m, "lookup artefact missing body_sha256 in wrapper frontmatter"

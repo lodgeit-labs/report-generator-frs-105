@@ -30,6 +30,10 @@ import shutil
 import sys
 
 KIT_ROOT = pathlib.Path(__file__).resolve().parent.parent
+# v0.1.1 packaging fix (OT #59): bridge_canon moved into the package data dir
+# so it ships in the wheel. All path operations below resolve relative to
+# KIT_DATA_ROOT, not KIT_ROOT.
+KIT_DATA_ROOT = KIT_ROOT / "src" / "report_generator_frs_105" / "data"
 
 
 def main() -> int:
@@ -47,7 +51,7 @@ def main() -> int:
         return 1
 
     src_dir = brain / "GLOBAL_NOTES" / "BRIDGE" / "frs_105_micro" / "frc_v2026"
-    dst_dir = KIT_ROOT / "bridge_canon" / "frs_105_micro" / "frc_v2026"
+    dst_dir = KIT_DATA_ROOT / "bridge_canon" / "frs_105_micro" / "frc_v2026"
 
     # 1. wipe and re-copy
     if dst_dir.exists():
@@ -71,7 +75,7 @@ def main() -> int:
 
     # 3. sidecars
     sc_src = brain / "memory" / "sidecars" / "BRIDGE-frs_105_micro-frc_v2026-path_a_v1"
-    sc_dst = KIT_ROOT / "bridge_canon_sidecars" / "BRIDGE-frs_105_micro-frc_v2026-path_a_v1"
+    sc_dst = KIT_DATA_ROOT / "bridge_canon_sidecars" / "BRIDGE-frs_105_micro-frc_v2026-path_a_v1"
     if sc_dst.exists():
         shutil.rmtree(sc_dst)
     sc_dst.mkdir(parents=True)
@@ -104,7 +108,7 @@ def main() -> int:
 
     # 5. MANIFEST
     entries = []
-    for root in (KIT_ROOT / "bridge_canon", KIT_ROOT / "bridge_canon_sidecars"):
+    for root in (KIT_DATA_ROOT / "bridge_canon", KIT_DATA_ROOT / "bridge_canon_sidecars"):
         for p in sorted(root.rglob("*")):
             if not p.is_file() or p.name == "MANIFEST.json":
                 continue
@@ -119,7 +123,7 @@ def main() -> int:
         "note": "Each vendored file is byte-identical to its source in clawdog-brain at the declared commit. The lookup artefact carries a Kit wrapper-frontmatter; its sha256 here covers the full wrapped file. All other files are unwrapped byte-copies.",
         "files": entries,
     }
-    (KIT_ROOT / "bridge_canon" / "MANIFEST.json").write_text(
+    (KIT_DATA_ROOT / "bridge_canon" / "MANIFEST.json").write_text(
         json.dumps(manifest, indent=2) + "\n"
     )
 

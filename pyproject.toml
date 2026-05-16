@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "report-generator-frs-105"
-version = "0.1.0"
+version = "0.1.1"
 description = "Egress-Interface Kit projecting clawdog-brain Phase 4a.3 bridge canon for FRS 105 Micro × FRC v2026. Deterministic LodgeiT-SBRM-slug → FRC-element resolver."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -36,4 +36,12 @@ Homepage = "https://github.com/lodgeit-labs/report-generator-frs-105"
 where = ["src"]
 
 [tool.setuptools.package-data]
-"report_generator_frs_105" = ["py.typed"]
+# v0.1.1 packaging fix (OT #59): include the vendored bridge canon and sidecars
+# in the wheel. v0.1.0 silently dropped the canon because it lived at the repo
+# root (outside the package). Lesson #40 paid out at Phase 4a.4 Subagent B.
+"report_generator_frs_105" = [
+  "py.typed",
+  "data/bridge_canon/**/*.md",
+  "data/bridge_canon/**/*.json",
+  "data/bridge_canon_sidecars/**/*.xsd_excerpt",
+]
