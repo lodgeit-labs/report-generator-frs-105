@@ -112,7 +112,13 @@ def main() -> int:
         for p in sorted(root.rglob("*")):
             if not p.is_file() or p.name == "MANIFEST.json":
                 continue
-            rel = p.relative_to(KIT_ROOT).as_posix()
+            # MANIFEST paths are KIT_DATA_ROOT-relative (e.g. "bridge_canon/...").
+            # The byte-fidelity test resolves them against KIT_DATA_ROOT. Writing
+            # KIT_ROOT-relative paths here yielded "src/report_generator_frs_105/
+            # data/bridge_canon/..." entries which the test then double-nested
+            # against KIT_DATA_ROOT and reported as missing (C2 bug discovery,
+            # 2026-05-16). Aligning with v0.1.1 MANIFEST shape + test resolver.
+            rel = p.relative_to(KIT_DATA_ROOT).as_posix()
             h = hashlib.sha256(p.read_bytes()).hexdigest()
             entries.append({"path": rel, "sha256": h, "bytes": p.stat().st_size})
     manifest = {

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "report-generator-frs-105"
-version = "0.1.1"
+version = "0.1.2"
 description = "Egress-Interface Kit projecting clawdog-brain Phase 4a.3 bridge canon for FRS 105 Micro × FRC v2026. Deterministic LodgeiT-SBRM-slug → FRC-element resolver."
 readme = "README.md"
 requires-python = ">=3.10"

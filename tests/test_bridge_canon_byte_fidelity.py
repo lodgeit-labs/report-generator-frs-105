@@ -39,8 +39,13 @@ def manifest() -> dict:
 
 
 def test_manifest_exists(manifest):
+    # Pinned to the Brain commit that vendored this Kit release. Bumped each
+    # time `scripts/revendor_from_brain.py` runs; the version-bump and this
+    # constant MUST move together (Kit-CI Gate 2 enforces).
+    #   v0.1.1: 2fc7451a3068c69d726a2159cced4254fad2187c (pre-mc14)
+    #   v0.1.2: a1f6dfa5e531d4d6c3f6df2a50a32765835017ab (post-mc14 F1 fix)
     assert manifest["source_brain_canon_commit"] == \
-        "2fc7451a3068c69d726a2159cced4254fad2187c"
+        "a1f6dfa5e531d4d6c3f6df2a50a32765835017ab"
     assert len(manifest["files"]) >= 50  # 40 canon + 4 schema + 12 sidecars + readme + lookup
     assert manifest["kit"] == "lodgeit-labs/report-generator-frs-105"
 

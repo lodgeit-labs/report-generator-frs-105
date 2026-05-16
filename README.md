@@ -93,25 +93,24 @@ FRC-2026-Taxonomy-v1.0.0/fr/2026-01-01/core/frc-core-2026-01-01.xsd:2091:
            xbrli:periodType="instant"/>
 ```
 
-XSD `targetNamespace`: `http://xbrl.frc.org.uk/fr/2026-01-01/core` — i.e. `uk-core:`. The element is **not** declared in `bus-2026-01-01.xsd`. A full 40-node sweep against the FRC v2026 XSDs confirmed only this one node (F1) was inverted; the other 39 `framework_concept:` declarations in the v0.1.1 vendored bundle are correct against the wire.
+XSD `targetNamespace`: `http://xbrl.frc.org.uk/fr/2026-01-01/core` — i.e. `uk-core:`. The element is **not** declared in `bus-2026-01-01.xsd`. A full 40-node sweep against the FRC v2026 XSDs at mc14 (2026-05-16) confirmed only this one node (F1) was inverted in v0.1.1; the other 39 `framework_concept:` declarations were already correct against the wire. v0.1.2 vendors the corrected F1 node alongside the other 39 from the post-mc14 Brain commit.
 
-### State of v0.1.1 (this release)
+### State of v0.1.2 (this release)
 
-- The vendored bridge canon in `bridge_canon/frs_105_micro/frc_v2026/date-authorisation-financial-statements-for-issue.input.md` carries `framework_concept: "uk-bus:DateAuthorisationFinancialStatementsForIssue"`. This is wrong against FRC v2026.
-- The vendor MANIFEST sha256 + Brain content_hash (`3dfcdd2c…`) are internally consistent but anchor a defective atom.
-- All other 39 vendored atoms are correct against the FRC v2026 wire.
-- **Recommendation for integrators:** if your filing populates `DateAuthorisationFinancialStatementsForIssue` (it is the boilerplate "date directors authorised the accounts for issue" element, present on most FRS 105 micro filings), **hold off pinning v0.1.1 for that specific concept** until v0.1.2 ships with the corrected bridge canon. Other 39 mappings are safe to consume.
+- The vendored bridge canon in `bridge_canon/frs_105_micro/frc_v2026/date-authorisation-financial-statements-for-issue.input.md` now carries `framework_concept: "uk-core:DateAuthorisationFinancialStatementsForIssue"` — correct against FRC v2026 (`frc-core-2026-01-01.xsd:2091`).
+- The vendored Brain content_hash is `c86051ace4d4f26a68f983988a9812319b24589345292736ca8f6639b636a2ba` (post-mc14 factual_correction).
+- All 40 `framework_concept:` declarations in the vendored bundle now match the FRC v2026 wire.
+- **Recommendation for integrators:** pin `report-generator-frs-105>=0.1.2`. Releases v0.1.0 and v0.1.1 are superseded — v0.1.1 shipped the F1 node with the inverted namespace (see CHANGELOG); v0.1.0 was the silent-packaging release. Both are deprecated in favour of v0.1.2.
 
-### State of `clawdog-brain` (post-correction)
+### State of `clawdog-brain` (post-correction, vendored into this release)
 
-The Brain bridge-canon F1 node was corrected on 2026-05-16 under `mut-2026-05-16-mc14-factual-correction`:
+The Brain bridge-canon F1 node was corrected on 2026-05-16 under `mut-2026-05-16-mc14-factual-correction` (Brain PR #212):
 
 - `framework_concept`: `uk-bus:…` → `uk-core:DateAuthorisationFinancialStatementsForIssue`
 - `previous_content_hash`: `3dfcdd2cc32e33feddff074450f704ed5863cc61e9c51621cff7a9f8a5c95fa7`
 - New `content_hash`: `c86051ace4d4f26a68f983988a9812319b24589345292736ca8f6639b636a2ba`
 - `helm_mutations[]` appended (mutation_type: `factual_correction`)
-
-Kit v0.1.2 (next release) will re-vendor against this corrected canon. Until v0.1.2 ships, the discrepancy between v0.1.1's vendored bundle and the Brain master is intentional and audit-trail-visible.
+- Vendored into this release at Brain commit `a1f6dfa5e531d4d6c3f6df2a50a32765835017ab` (post-merge of Brain PR #212).
 
 ### Pattern (the real lesson, restated honestly)
 
@@ -124,7 +123,7 @@ Forensic chronicle: `clawdog-brain/memory/2026-05-16.md` (Phase A wire-audit + m
 This Kit's `bridge_canon/` and `bridge_canon_sidecars/` directories are a **byte-identical mirror** of:
 
 - Source repo: `github.com/futureWA/clawdog-brain`
-- Source commit: `2fc7451a3068c69d726a2159cced4254fad2187c`
+- Source commit: `a1f6dfa5e531d4d6c3f6df2a50a32765835017ab` (post-mc14 F1 factual-correction; Brain PR #212 merge)
 - Source paths: `GLOBAL_NOTES/BRIDGE/frs_105_micro/frc_v2026/**`, `GLOBAL_NOTES/BRIDGE/_schema/**`, `memory/sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/**`
 
 Each vendored file's sha256 is declared in `bridge_canon/MANIFEST.json` and verified at PR time by Gate 2 of CI. The Path A v1 lookup artefact additionally carries a Kit wrapper-frontmatter declaring `body_sha256` of the wrapped Brain body (pattern precedent: `lodgeit-labs/clawdog/docs/INTEGRATOR_README.md`).

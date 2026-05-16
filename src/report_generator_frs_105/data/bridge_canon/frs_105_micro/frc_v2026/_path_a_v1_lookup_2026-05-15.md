@@ -1,9 +1,9 @@
 ---
 kit_vendor_wrapper:
   source_brain_repo:         "github.com/futureWA/clawdog-brain"
-  source_brain_canon_commit: "2fc7451a3068c69d726a2159cced4254fad2187c"
+  source_brain_canon_commit: "a1f6dfa5e531d4d6c3f6df2a50a32765835017ab"
   source_brain_path:         "GLOBAL_NOTES/BRIDGE/frs_105_micro/frc_v2026/_path_a_v1_lookup_2026-05-15.md"
-  vendored_at_utc:           "2026-05-16T02:14:49Z"
+  vendored_at_utc:           "2026-05-16T10:32:15Z"
   body_sha256:               "6920d13ba2410d3c11343e64ccd6e3ea062cf755c6ca99bab9287de8c21787e2"
   body_bytes:                18420
   notes: |
