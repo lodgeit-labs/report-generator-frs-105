@@ -72,20 +72,52 @@ Four LodgeiT slugs **do not have a clean monetary-aggregate anchor** in the FRC 
 
 **Implication for integrators:** an Arelle-acceptable iXBRL filing using these slugs may still be **statutory-semantic-incomplete** in the dimensional-context sense. Phase 4a.6 closure requires a binding final human-eye review before the bridge canon is declared production-ready for the full FRS 105 hyperplane.
 
-## ✅ Real bug this Kit caught (Phase 4a.4 integration case study)
+## ⚠️ Cautionary case study: internal byte-identity is not external regulator-shape correctness (Phase 4a.4 forensic record, corrected 2026-05-16)
 
-The whole point of a deterministic content-hashed bridge canon (rather than a hand-authored mapping in each consumer's templates) is that hand-authored mappings drift. At Phase 4a.4 integration with `lodgeit-labs/LodgeiT_HMRC_CT600`, the A/B byte-identical iXBRL regression harness surfaced a real defect in the v1 production templates:
+> **Correction notice (2026-05-16):** an earlier version of this section (published in v0.1.1, README from 2026-05-16 03:20–09:41 UTC) framed the Phase 4a.4 A/B byte-identity harness as having *caught a real namespace defect in v1 production templates* — specifically claiming `uk-core:DateAuthorisationFinancialStatementsForIssue` was the v1 bug and `uk-bus:` was the bridge canon's correct anchor. **That claim was inverted against the wire.** A wire-anchored audit on 2026-05-16 of the FRC v2026 taxonomy XSDs proved the concept is declared exactly once, at `FRC-2026-Taxonomy-v1.0.0/fr/2026-01-01/core/frc-core-2026-01-01.xsd:2091`, in the `uk-core:` namespace. The v1 template was originally correct; the Phase 4a.2 `external_input` bridge-canon node was authored with the wrong namespace at birth (origin fault: `mut-2026-05-13-phase-4a-2`); Phase 4a.4 propagated the inverted canon into the v1 template via a `resolve()` call. Both A/B paths in v0.1.1 emit the wrong namespace.
 
-- **v1 (hand-authored):** `<ix:nonFraction name="uk-core:DateAuthorisationFinancialStatementsForIssue" ...>`
-- **Bridge canon (deterministic):** `uk-bus:DateAuthorisationFinancialStatementsForIssue` (the concept lives in the `uk-bus` namespace, not `uk-core`, in FRC v2026)
+### What actually happened
 
-The v1 templates carried the wrong namespace prefix on a single concept for an unknown duration. The bridge canon's Phase 4a.2 `external_input` node for that concept correctly anchors to `uk-bus`. The integration's feature-flag A/B byte-identity test refused to pass until the v1 hard-coded fallback was corrected to match the canonical value; net change at template level was a 1-byte shift (`core` → `bus`).
+At Phase 4a.4 integration with `lodgeit-labs/LodgeiT_HMRC_CT600`, the A/B byte-identical iXBRL regression harness *did* succeed at what it was designed to do: prove that the `USE_BRIDGE_CANON=0` (legacy hard-coded fallback) and `USE_BRIDGE_CANON=1` (bridge-canon lookup) paths produce byte-identical iXBRL output. That **internal agreement** was real and remains true in v0.1.1.
 
-**Why this matters:** the v1 path reportedly passed Arelle FRC v2026 validation 0/0, suggesting Arelle treated the bad namespace as a soft warning rather than a hard error (or namespace-alias resolution was lenient). HMRC TE or Companies House strict validation might not be as forgiving — and downstream consumers of the rendered iXBRL (auditors, regulators, financial-data aggregators) parsing on exact namespace would treat the value as a distinct concept from the intended one.
+What the harness *did not* do — and was never designed to do — is anchor either path against the FRC v2026 schema itself. The harness asks *"do our two paths agree?"*, not *"do our two paths agree with the regulator?"*. When the bridge canon ships an atom that is wrong at birth, internal agreement becomes a coherence-trap: both paths agree on the wrong answer, and the harness reports green.
 
-**Pattern:** the bridge canon is an active **cybernetic defence mechanism**, not just administrative overhead. By forcing consumers to substitute against a deterministic content-hashed atom rather than typing a literal namespace prefix, this Kit surfaces silent namespace defects at the first integration.
+### Wire truth (FRC v2026 schema, 2026-05-16 audit)
 
-Forensic chronicle: `clawdog-brain/memory/2026-05-15.md` (Phase 4a.4 Subagent B execution).
+```
+FRC-2026-Taxonomy-v1.0.0/fr/2026-01-01/core/frc-core-2026-01-01.xsd:2091:
+  <element abstract="false"
+           id="core_DateAuthorisationFinancialStatementsForIssue"
+           name="DateAuthorisationFinancialStatementsForIssue"
+           ...
+           xbrli:periodType="instant"/>
+```
+
+XSD `targetNamespace`: `http://xbrl.frc.org.uk/fr/2026-01-01/core` — i.e. `uk-core:`. The element is **not** declared in `bus-2026-01-01.xsd`. A full 40-node sweep against the FRC v2026 XSDs confirmed only this one node (F1) was inverted; the other 39 `framework_concept:` declarations in the v0.1.1 vendored bundle are correct against the wire.
+
+### State of v0.1.1 (this release)
+
+- The vendored bridge canon in `bridge_canon/frs_105_micro/frc_v2026/date-authorisation-financial-statements-for-issue.input.md` carries `framework_concept: "uk-bus:DateAuthorisationFinancialStatementsForIssue"`. This is wrong against FRC v2026.
+- The vendor MANIFEST sha256 + Brain content_hash (`3dfcdd2c…`) are internally consistent but anchor a defective atom.
+- All other 39 vendored atoms are correct against the FRC v2026 wire.
+- **Recommendation for integrators:** if your filing populates `DateAuthorisationFinancialStatementsForIssue` (it is the boilerplate "date directors authorised the accounts for issue" element, present on most FRS 105 micro filings), **hold off pinning v0.1.1 for that specific concept** until v0.1.2 ships with the corrected bridge canon. Other 39 mappings are safe to consume.
+
+### State of `clawdog-brain` (post-correction)
+
+The Brain bridge-canon F1 node was corrected on 2026-05-16 under `mut-2026-05-16-mc14-factual-correction`:
+
+- `framework_concept`: `uk-bus:…` → `uk-core:DateAuthorisationFinancialStatementsForIssue`
+- `previous_content_hash`: `3dfcdd2cc32e33feddff074450f704ed5863cc61e9c51621cff7a9f8a5c95fa7`
+- New `content_hash`: `c86051ace4d4f26a68f983988a9812319b24589345292736ca8f6639b636a2ba`
+- `helm_mutations[]` appended (mutation_type: `factual_correction`)
+
+Kit v0.1.2 (next release) will re-vendor against this corrected canon. Until v0.1.2 ships, the discrepancy between v0.1.1's vendored bundle and the Brain master is intentional and audit-trail-visible.
+
+### Pattern (the real lesson, restated honestly)
+
+The bridge canon remains an active **cybernetic defence mechanism**, but with a sharpened boundary condition: it defends against drift **between** consumers of the canon (template-vs-template, kit-vs-kit, integration-vs-integration), not drift **between** the canon and the regulator. The latter requires a separate gate that anchors the canon against the regulator's schema. In LodgeiT terms, this is *Standing Rule #12, mc14-refined: hermetic green without production-bundle green is pre-broken — and production-bundle green requires regulator-schema validation, not just internal byte-identity*. (This Kit's CI Gate 2 byte-check enforces internal agreement; it does not yet anchor against the FRC v2026 XSDs. That gate is a candidate for v0.1.3+.)
+
+Forensic chronicle: `clawdog-brain/memory/2026-05-16.md` (Phase A wire-audit + mc14 helm-roll); `clawdog-brain/memory/2026-05-15.md` (Phase 4a.4 Subagent B execution + the inverted banking that this section now corrects); `clawdog-brain/memory/lessons.md` § Lesson #40 (n=3 datapoint, mc14-refined canonical statement).
 
 ## Provenance
 
