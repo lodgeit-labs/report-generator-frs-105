@@ -1,0 +1,1 @@
+   <element abstract="false" id="core_CashBankOnHand" name="CashBankOnHand" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" xbrli:balance="debit" xbrli:periodType="instant"/>

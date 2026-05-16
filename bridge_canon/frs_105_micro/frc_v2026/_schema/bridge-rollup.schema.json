@@ -1,0 +1,255 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://lodgeit-labs.org/sbrm/bridge/v1/schema/bridge-rollup.json",
+  "title": "SBRM \u2192 Framework Bridge Computed-Rollup Node (computed_rollup)",
+  "description": "Schema for computed_rollup bridge fact-nodes under GLOBAL_NOTES/BRIDGE/<framework_id>/<taxonomy_version>/<framework_concept_id>.rollup.md. Declares a framework concept whose value is COMPUTED from a partition formula over other concepts, not classified into by any single SBRM code. Examples: GrossProfitLoss = TurnoverRevenue + CostSales; CurrentAssets = Bank + Debtors + Inventories.",
+  "type": "object",
+  "required": [
+    "@context",
+    "@id",
+    "ontological_class",
+    "bridge_rollup",
+    "cryptographic_anchor",
+    "cybernetic_state",
+    "helm_mutations"
+  ],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://lodgeit-labs.org/sbrm/bridge/v1"
+    },
+    "@id": {
+      "type": "string",
+      "pattern": "^urn:sbrm:bridge-rollup:[a-z0-9_]+:[a-z0-9_]+:[a-z0-9_-]+$",
+      "description": "Canonical URN: urn:sbrm:bridge-rollup:<framework_id>:<taxonomy_version>:<framework_concept_slug>."
+    },
+    "ontological_class": {
+      "type": "string",
+      "const": "BridgeComputedRollup"
+    },
+    "bridge_rollup": {
+      "type": "object",
+      "required": [
+        "framework_id",
+        "taxonomy_version",
+        "period_applicability",
+        "framework_concept",
+        "mapping_kind",
+        "statement_role",
+        "formula",
+        "depends_on"
+      ],
+      "properties": {
+        "framework_id": {
+          "type": "string",
+          "enum": [
+            "frs_105_micro",
+            "frs_102_1a_small",
+            "au_sbr_gp",
+            "au_aasb_ifrs",
+            "ifrs_full"
+          ]
+        },
+        "taxonomy_version": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "period_applicability": {
+          "oneOf": [
+            {
+              "type": "string",
+              "const": "ongoing"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}\\.\\.[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+            }
+          ]
+        },
+        "framework_concept": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mapping_kind": {
+          "type": "string",
+          "const": "computed_rollup"
+        },
+        "statement_role": {
+          "type": "string",
+          "enum": [
+            "PL_COMPUTED",
+            "BS_COMPUTED",
+            "EQUITY_COMPUTED",
+            "OCI_COMPUTED",
+            "CASHFLOW_COMPUTED"
+          ]
+        },
+        "formula": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Prolog-flavoured expression defining the rollup. Body of a predicate of the form: <framework_concept>(P) :- framework_value(P, Dep1, V1), framework_value(P, Dep2, V2), Result is V1 + V2. The aggregator engine executes this directly."
+        },
+        "depends_on": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Topological dependency edge: list of framework_concept identifiers this rollup reads. Aggregator MUST resolve all dependencies before computing this concept."
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "verifies_against": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source",
+          "anchor"
+        ],
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "anchor": {
+            "type": "string"
+          },
+          "sidecar": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "cryptographic_anchor": {
+      "type": "object",
+      "required": [
+        "hash_algorithm",
+        "hash_target",
+        "content_hash"
+      ],
+      "properties": {
+        "hash_algorithm": {
+          "type": "string",
+          "const": "SHA-256"
+        },
+        "hash_target": {
+          "type": "string",
+          "enum": [
+            "self",
+            "source"
+          ]
+        },
+        "content_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$|^PLACEHOLDER_CONTENT_HASH$"
+        },
+        "ipfs_cid": {
+          "type": "string"
+        },
+        "hash_domain": {
+          "type": "string",
+          "enum": [
+            "pre_anchor_draft",
+            "anchored_v1",
+            "anchored_v2"
+          ]
+        }
+      }
+    },
+    "cybernetic_state": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "canonical",
+            "deprecated"
+          ]
+        }
+      }
+    },
+    "helm_mutations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "mutation_id",
+          "agent_id",
+          "authority",
+          "justification"
+        ],
+        "properties": {
+          "mutation_id": {
+            "type": "string"
+          },
+          "agent_id": {
+            "type": "string"
+          },
+          "authority": {
+            "type": "string"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "timestamp_utc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ledger_id": {
+            "type": "string"
+          },
+          "mutation_type": {
+            "type": "string"
+          },
+          "previous_content_hash": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "semantic_edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rel",
+          "target"
+        ],
+        "properties": {
+          "rel": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

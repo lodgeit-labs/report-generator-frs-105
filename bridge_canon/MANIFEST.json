@@ -1,0 +1,304 @@
+{
+  "kit": "lodgeit-labs/report-generator-frs-105",
+  "source_brain_repo": "github.com/futureWA/clawdog-brain",
+  "source_brain_canon_commit": "2fc7451a3068c69d726a2159cced4254fad2187c",
+  "vendor_strategy": "byte-copy (D4.2=b) + Kit-CI byte-check gate (CLAWDOG/141 precedent)",
+  "note": "Each vendored file is byte-identical to its source in clawdog-brain at the declared commit. The lookup artefact carries a Kit wrapper-frontmatter; its sha256 here covers the full wrapped file. All other files are unwrapped byte-copies.",
+  "files": [
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/README.md",
+      "sha256": "a9b7a1bf425675b1f16e632916bc0d172e1ccca7117641d2efde1d33c116f2df",
+      "bytes": 4587
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_ancestry_/cash-cash-equivalents.md",
+      "sha256": "ba40610295e0167a8665bd01d6e20d29db162eaff760b07b74bf2984ac29af3c",
+      "bytes": 3394
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_ancestry_/comprehensive-income.md",
+      "sha256": "7ebf5fb551834e9cb119fc3bafdef74eefb288df7b7fa4f9f1b928967b529396",
+      "bytes": 3894
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_ancestry_/current-assets.md",
+      "sha256": "ae3c1087a529a245ca90dde186f870091c9ca02a3fd3d3ab1696034fdcc7d499",
+      "bytes": 3555
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_ancestry_/equity.md",
+      "sha256": "5a8e5295a64222b0f506ad1d43d8b22642fb4595d430ff30c771497edf6cc146",
+      "bytes": 3321
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_ancestry_/fixed-assets.md",
+      "sha256": "46b206fc4d43d8234a42b0e139e352ed8a6082e42080e5957157dad730d0302b",
+      "bytes": 3353
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_ancestry_/non-current-liabilities.md",
+      "sha256": "2b96eff93ef2dcd5e29c14081b192d659c99fa0e73efe5c1db3055f87780882b",
+      "bytes": 3754
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_ancestry_/other-revenue.md",
+      "sha256": "f05b0c45989270168245e09e73e2302d952df316da830c1d146490f6c73655af",
+      "bytes": 4765
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_ancestry_/plant-equipment.md",
+      "sha256": "b06ae9f729f3022be938949d37962b018556f235f049dda8151f291572d8964f",
+      "bytes": 3474
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_ancestry_/provisions.md",
+      "sha256": "a9237248a0be624b320c687ec7b9aba06eec632aed802cdd668cf86da88457c9",
+      "bytes": 3217
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_ancestry_/share-capital.md",
+      "sha256": "66391227edefe4efa95db13fbb2c47db3032ba4ed704951f473e89e424e965c7",
+      "bytes": 3771
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_ancestry_/trading-revenue.md",
+      "sha256": "43fc0c332cbf6d96d6645cf988251036e7d564bff346ecc9b9edbd5e36f45989",
+      "bytes": 3502
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_path_a_v1_lookup_2026-05-15.md",
+      "sha256": "d90bd8632ba58a4d65bfb8087aa4939e0862928989b39a7302f4fb170fd55107",
+      "bytes": 19193
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_schema/README.md",
+      "sha256": "11f0fcab1f588caed80865c64d9fda74d76219efa785037370607e666ecfb135",
+      "bytes": 4170
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_schema/bridge-ancestry.schema.json",
+      "sha256": "e37cb45d5845fea33500521e47e8f9d7c3b64974a7585047780bc7e143f1ba02",
+      "bytes": 6721
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_schema/bridge-external-input.schema.json",
+      "sha256": "2ce45e93fe8f76f4f6f94cab358c195fddc846d2c56381af7c1377ad1175af21",
+      "bytes": 7213
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_schema/bridge-mapping.schema.json",
+      "sha256": "e32628a8bc7ffddb06167dd3e645f666cba15728cb7e614ddf19ea012967193d",
+      "bytes": 7046
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/_schema/bridge-rollup.schema.json",
+      "sha256": "d1c8656fd6a431ff2e21d3e52178aff6c9eab82704881b408ab4bef783522501",
+      "bytes": 6557
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/current-assets.rollup.md",
+      "sha256": "c2767382ca7b2feb0b4f7ae57a088f01d362be8142f5806ca62c652f134a2189",
+      "bytes": 3194
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/date-authorisation-financial-statements-for-issue.input.md",
+      "sha256": "0b06c243faae035220f78bb6d78a78eb0aeec22218b4166d3a412b407fc48f4d",
+      "bytes": 2588
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/end-date-for-period-covered-by-report.input.md",
+      "sha256": "08b9a619e87c7a5ca32d2f84aa8f04b0f66008b9cff2b64004dc6ce60ebd4ad0",
+      "bytes": 2301
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/entity-current-legal-or-registered-name.input.md",
+      "sha256": "86bc3387a48a174be2fd1c0a40e586eb3b940a939d63222438b00e8cd45f2edc",
+      "bytes": 2372
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/entity-dormant-truefalse.input.md",
+      "sha256": "49d99f6e25a884ea812c6375971cb7f67728587d5e4738341be0aeaa09c540cc",
+      "bytes": 2459
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/entity-trading-status.input.md",
+      "sha256": "8f6189bdb213493ba5a295fcb6f9029501afe642ef250769228a5945af06d356",
+      "bytes": 2457
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/equity.rollup.md",
+      "sha256": "c29242b5b29b678aac1a61e6aa409454b01aec772a0ea752e910fda98ab17f70",
+      "bytes": 3163
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/fixed-assets.rollup.md",
+      "sha256": "a895ce95c22ee2d0d04d0e28b35b68af83d7efeb49794b583cf93570be1f5c15",
+      "bytes": 3048
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/gross-profit-loss.rollup.md",
+      "sha256": "152cc6b110f2a1a360a2fe41675ad4919a196a8a5052c69d267b09557c63ab2a",
+      "bytes": 3161
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/net-current-assets-liabilities.rollup.md",
+      "sha256": "475788aae4d9e51341d428dad713a8146e594287e6d911ffcd72f0a447ef30e1",
+      "bytes": 3714
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/operating-profit-loss.rollup.md",
+      "sha256": "1f77f224fb24dbc532f8cc143d6d688696e3d0f10c5edd983dd164f8919db977",
+      "bytes": 3433
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/profit-loss-on-ordinary-activities-before-tax.rollup.md",
+      "sha256": "0c9ffb500c1996d48e24d5e2d37091d160e20b3ca37898162c422f2665ef5efd",
+      "bytes": 3271
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/profit-loss.rollup.md",
+      "sha256": "be3b3c91f09611dcdd555e66918feb6f284e0153238bc57f9f0f0c2692de45d3",
+      "bytes": 3196
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/sbrm-1137.md",
+      "sha256": "1745a335997e05ce964a9379dd2b88c43d11ad095eb9f80a8b0a56e2e90cc7fd",
+      "bytes": 2445
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/sbrm-1141.md",
+      "sha256": "136290adbbf48aeb5d5acdef231fdd32c10acf3d6a69cc358f2238961d7619d4",
+      "bytes": 2353
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/sbrm-1200.md",
+      "sha256": "205a167ed5b3530540ae205cb0a5a0cb90150b2aa0a85be426693b52a63af214",
+      "bytes": 2501
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/sbrm-1654.md",
+      "sha256": "1429d0cdfee20e28e942dd0f918ad970e83724472fb9158f8989272eb030188f",
+      "bytes": 2423
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/sbrm-2169.md",
+      "sha256": "7d197c295805068b7bc0ccc1b01dd8b474410aa7e98a4bf1b48df6a07299722f",
+      "bytes": 2445
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/sbrm-2266.md",
+      "sha256": "9e84a000c0aea989895a1e7a3fab0be01d2400eb5e1854cf0ced5cd75141648c",
+      "bytes": 2401
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/sbrm-3113.md",
+      "sha256": "48542ad63d0899a513a9f739760ee67829d42a042294bd8daff69187565cb0e5",
+      "bytes": 2459
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/sbrm-3121.md",
+      "sha256": "8cd4aef631c36f5a54fc88b52b5bf8550b7a6756f7256821c7c3271578ccf958",
+      "bytes": 2520
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/sbrm-4101.md",
+      "sha256": "8c945f136211ba9249c202c3139a1b8bc0d7a1f99b731a9f811154664bacf6b3",
+      "bytes": 2425
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/sbrm-5103.md",
+      "sha256": "57b5fc8acb7832787aecf050798374ec49e8f2ebf0fa2d805ac92a452439993f",
+      "bytes": 2373
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/sbrm-5511.md",
+      "sha256": "383c69317fd4ff59a8af1fc3f760e213599db72f63b66478053ec5ed476a10d8",
+      "bytes": 2391
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/sbrm-6305.md",
+      "sha256": "d1b09e8fbc4fedd42e8f60eeb19a63606656bfb9ea9c883f14dac0bee8e28a54",
+      "bytes": 2513
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/start-date-for-period-covered-by-report.input.md",
+      "sha256": "b48ebfed241c84a69bee94478efe7ed877c84f1e34e25df539cd2aa83bd58e2d",
+      "bytes": 2405
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/tax-tax-credit-on-profit-or-loss-on-ordinary-activities.input.md",
+      "sha256": "71ef2b7eff06c59abaed34ea7ca05f4f33b255d7ac9ab8db7b7c1db6be21c0d5",
+      "bytes": 5547
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/total-assets-less-current-liabilities.rollup.md",
+      "sha256": "be193591f46ca7268c13cb3937636c7676bc51fb31b30a27a66eeda628875b0f",
+      "bytes": 3275
+    },
+    {
+      "path": "bridge_canon/frs_105_micro/frc_v2026/uk-companies-house-registered-number.input.md",
+      "sha256": "2d8530bcac2abaa33efdf25a8daa1b5a1a777b6d7e0c0007b8f30f3713a61ecc",
+      "bytes": 2369
+    },
+    {
+      "path": "bridge_canon_sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/CashBankOnHand.xsd_excerpt",
+      "sha256": "de49cbd80ae789feb8261d70deb15299b74231e2762c429732bc2f42e5e11e4c",
+      "bytes": 204
+    },
+    {
+      "path": "bridge_canon_sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/ComprehensiveIncomeExpense.xsd_excerpt",
+      "sha256": "c7d01b96e914a4ccfc8271a28417ca01b0c9cc357fa4823638ffbbea39c631ee",
+      "bytes": 230
+    },
+    {
+      "path": "bridge_canon_sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/Creditors.xsd_excerpt",
+      "sha256": "a1b9a87bc61a036ecc25b3f0e96fe275e2def209f65d5d586755007115aa76c5",
+      "bytes": 195
+    },
+    {
+      "path": "bridge_canon_sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/CurrentAssets.xsd_excerpt",
+      "sha256": "d1fbc93854c1376d23ef25939ddbcfda3e17a7209d2a79f5b46fbcbe9b13e41f",
+      "bytes": 202
+    },
+    {
+      "path": "bridge_canon_sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/Equity.xsd_excerpt",
+      "sha256": "fa159a5469b464eacb618ac2bfea1261f87bfcf595dd1d6daf4ec68f0e541416",
+      "bytes": 189
+    },
+    {
+      "path": "bridge_canon_sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/FixedAssets.xsd_excerpt",
+      "sha256": "8a0c6037729a1826074729180b13cc18ead2b516ad0c49fd32b841c4123cae79",
+      "bytes": 198
+    },
+    {
+      "path": "bridge_canon_sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/OtherOperatingIncome.xsd_excerpt",
+      "sha256": "49e4f765e11c78814c688835674d0b7efc0bdc8b6f562422b1de34e81e597220",
+      "bytes": 214
+    },
+    {
+      "path": "bridge_canon_sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/PropertyPlantEquipment.xsd_excerpt",
+      "sha256": "ebaa360370c2c0a2b3ec24e158610f9922b6768670fa6d9809cf5414c2ca32dd",
+      "bytes": 220
+    },
+    {
+      "path": "bridge_canon_sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/Provisions.xsd_excerpt",
+      "sha256": "236defd523ae158020ad6f179b15d9b30dad95950f4833a2e10f4196aa6c5ce9",
+      "bytes": 197
+    },
+    {
+      "path": "bridge_canon_sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/ShareCapital.xsd_excerpt",
+      "sha256": "c92c9855065d11b69ef42466d83b4a00010d9a2f34e289277ca0f70091f5915d",
+      "bytes": 177
+    },
+    {
+      "path": "bridge_canon_sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/TaxTaxCreditOnProfitOrLossOnOrdinaryActivities.xsd_excerpt",
+      "sha256": "baf03ebbc171b3479757675ddd264cecc9d25279de52cd5fcab640f9bbbb61f6",
+      "bytes": 269
+    },
+    {
+      "path": "bridge_canon_sidecars/BRIDGE-frs_105_micro-frc_v2026-path_a_v1/TurnoverRevenue.xsd_excerpt",
+      "sha256": "7a6c585ed64b6d8e1630abfe4622536a2f201aa8b6f1b65beaae4c404e7a33d4",
+      "bytes": 208
+    }
+  ]
+}

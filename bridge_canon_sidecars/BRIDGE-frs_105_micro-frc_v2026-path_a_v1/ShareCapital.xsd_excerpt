@@ -1,0 +1,1 @@
+   <element abstract="true" id="core_ShareCapital" name="ShareCapital" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration"/>
